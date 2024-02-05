@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Entity\Client;
-use App\Entity\Interaction;
-use App\Entity\Offre;
-use App\Entity\Transaction;
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use App\Entity\Offre;
+use App\Entity\Client;
+use App\Entity\Article;
+use App\Entity\Interaction;
+use App\Entity\Transaction;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -44,4 +45,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Comptes', 'fa fa-user', User::class);
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }
+
+    // public function configureFilters(Filters $filters): Filters {
+
+    // }
 }
