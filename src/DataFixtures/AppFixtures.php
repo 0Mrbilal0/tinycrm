@@ -16,7 +16,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = \Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
 
         // Administateur
         $admin = new User();
@@ -36,10 +36,13 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 20; $i++) {
             $client = new Client();
-            $client->setNom($faker->lastName())
-                ->setPrenom($faker->firstName())
+            $prenom = $faker->firstName();
+            $nom = $faker->lastName();
+
+            $client->setNom($nom)
+                ->setPrenom($prenom)
                 ->setTelephone($faker->phoneNumber())
-                ->setEmail($faker->email())
+                ->setEmail($prenom . '.' . $nom . '@' . $faker->safeEmailDomain())
                 ->setAdresse($faker->streetAddress())
                 ->setCp($faker->postcode())
                 ->setVille($faker->city())
@@ -117,9 +120,12 @@ class AppFixtures extends Fixture
                 }
             }
             $transaction = new Transaction();
+            $offre = $faker->randomElement($offresArray);
+
             $transaction->setClient($faker->randomElement($clientsActives))
-                ->setMontant($faker->randomElement([1000, 2000, 3000, 5000]))
-                ->setStatut('Payé')
+                ->addOffre($offre)
+                ->setMontant($offre->getMontant())
+                ->setStatut($faker->randomElement(['Payé', 'En attente', 'Non payé']))
                 ->setDate($date)
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date);
@@ -149,7 +155,7 @@ class AppFixtures extends Fixture
             $manager->persist($interaction);
         }
 
-        // Articles
+        // Articles 
         $articles = [
             'Comment bien utiliser LinkedIn ?' => [
                 'image' => 'article1.jpg'
