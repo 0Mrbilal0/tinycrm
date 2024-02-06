@@ -45,8 +45,4 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Comptes', 'fa fa-user', User::class);
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }
-
-    // public function configureFilters(Filters $filters): Filters {
-
-    // }
 }
